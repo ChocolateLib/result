@@ -1,17 +1,12 @@
 import { Result, ResultError, ResultValid } from "../src"
 
-function test1(select: boolean): Result<string, number> {
-    if (select) {
-        return new ResultValid('Testing attention please');
-    } else {
-        return new ResultError(6);
-    }
-}
 
-let test2 = test1(false);
-console.log(test2);
-try {
-    console.log(test2.unwrap());
-} catch (error) {
-    console.log(error);
-}
+let test = ResultValid(5) as Result<number, string>;
+let test2 = test.andThen((value) => {
+    return ResultValid(6);
+})
+let test3 = test.orElse((errer) => {
+    return ResultError(5)
+})
+
+console.log((await test2).unwrap());
