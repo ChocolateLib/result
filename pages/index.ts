@@ -10,3 +10,6 @@ let test3 = test.orElse((errer) => {
 })
 
 console.log((await test2).unwrap());
+
+
+let test5 = await Promise.race([fetch('URL'), new Promise((a) => { setTimeout(a, 3000, false) })])
