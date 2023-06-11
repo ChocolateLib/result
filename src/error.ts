@@ -1,4 +1,4 @@
-import { Optional, Result } from "./index";
+import { Result } from "./index";
 import { OptionalBase, ResultBase } from "./base";
 import { ResultValidClass } from "./valid";
 
