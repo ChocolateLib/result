@@ -1,11 +1,11 @@
-import { ResultValidClass, OptionalSomeClass } from "./valid";
-import { ResultErrorClass, OptionalNoneClass } from "./error";
+import { ResultValid as ResultValid, OptionalSome as OptionalSome } from "./valid";
+import { ResultError as ResultError, OptionalNone as OptionalNone } from "./error";
 
-export type Result<T, E> = ResultValidClass<T> | ResultErrorClass<E>;
-export type Optional<T> = OptionalSomeClass<T> | OptionalNoneClass;
+export type Result<T, E> = ResultValid<T> | ResultError<E>;
+export type Optional<T> = OptionalSome<T> | OptionalNone;
 export type ResultOrOptional<T> = Omit<Result<T, never>, 'andThen'> | Optional<T>;
 
-export function ResultValid<T>(value: T) { return new ResultValidClass<T>(value) }
-export function ResultError<E>(error: E) { return new ResultErrorClass<E>(error) }
-export function OptionalSome<T>(value: T) { return new OptionalSomeClass<T>(value) }
-export function OptionalNone() { return new OptionalNoneClass() }
+export function Valid<T>(value: T) { return new ResultValid<T>(value) }
+export function Error<E>(error: E) { return new ResultError<E>(error) }
+export function Some<T>(value: T) { return new OptionalSome<T>(value) }
+export function None() { return new OptionalNone() }

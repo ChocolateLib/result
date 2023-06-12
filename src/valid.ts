@@ -1,8 +1,8 @@
 import { Optional, Result } from "./index";
-import { ResultErrorClass } from "./error";
+import { OptionalNone, ResultError } from "./error";
 import { OptionalBase, ResultBase } from "./base";
 
-export class ResultValidClass<T> implements ResultBase<T, never> {
+export class ResultValid<T> implements ResultBase<T, never> {
     readonly value: T
 
     constructor(value: T) {
@@ -35,40 +35,40 @@ export class ResultValidClass<T> implements ResultBase<T, never> {
         return this.value
     }
 
-    andThen<T2>(mapper: (value: T) => ResultValidClass<T2>): ResultValidClass<T2>;
-    andThen<E2>(mapper: (value: T) => ResultErrorClass<E2>): Result<T, E2>;
+    andThen<T2>(mapper: (value: T) => ResultValid<T2>): ResultValid<T2>;
+    andThen<E2>(mapper: (value: T) => ResultError<E2>): ResultError<E2>;
     andThen<T2, E2>(mapper: (value: T) => Result<T2, E2>): Result<T2, E2> {
         return mapper(this.value);
     }
-    andThenAsync<T2>(mapper: (value: T) => Promise<ResultValidClass<T2>>): Promise<ResultValidClass<T2>>;
-    andThenAsync<E2>(mapper: (value: T) => Promise<ResultErrorClass<E2>>): Promise<Result<T, E2>>;
+    andThenAsync<T2>(mapper: (value: T) => Promise<ResultValid<T2>>): Promise<ResultValid<T2>>;
+    andThenAsync<E2>(mapper: (value: T) => Promise<ResultError<E2>>): Promise<ResultError<E2>>;
     andThenAsync<T2, E2>(mapper: (value: T) => Promise<Result<T2, E2>>): Promise<Result<T2, E2>> {
         return mapper(this.value);
     }
 
-    orElse(_mapper: unknown): ResultValidClass<T> {
+    orElse(): ResultValid<T> {
         return this;
     }
-    async orElseAsync(_mapper: unknown): Promise<ResultValidClass<T>> {
+    async orElseAsync(): Promise<ResultValid<T>> {
         return this;
     }
 
-    map<U>(func: (value: T) => U): ResultValidClass<U> {
-        return new ResultValidClass(func(this.value));
+    map<U>(func: (value: T) => U): ResultValid<U> {
+        return new ResultValid(func(this.value));
     }
-    async mapAsync<U>(func: (value: T) => Promise<U>): Promise<ResultValidClass<U>> {
-        return new ResultValidClass(await func(this.value));
-    }
-
-    mapErr(_mapper: unknown): ResultValidClass<T> {
-        return this
-    }
-    async mapErrAsync(_mapper: unknown): Promise<ResultValidClass<T>> {
-        return this
+    async mapAsync<U>(func: (value: T) => Promise<U>): Promise<ResultValid<U>> {
+        return new ResultValid(await func(this.value));
     }
 
-    toOptional(): OptionalSomeClass<T> {
-        return new OptionalSomeClass(this.value);
+    mapErr(): ResultValid<T> {
+        return this
+    }
+    async mapErrAsync(): Promise<ResultValid<T>> {
+        return this
+    }
+
+    toOptional(): OptionalSome<T> {
+        return new OptionalSome(this.value);
     }
 
     /**Returns the contained valid value, but never throws.
@@ -80,13 +80,15 @@ export class ResultValidClass<T> implements ResultBase<T, never> {
     }
 }
 
-export class OptionalSomeClass<T> implements OptionalBase<T> {
+export class OptionalSome<T> implements OptionalBase<T> {
     readonly value: T
 
     constructor(value: T) {
         this.value = value;
     }
-
+    get valid(): true {
+        return true
+    }
     get some(): true {
         return true
     }
@@ -106,27 +108,32 @@ export class OptionalSomeClass<T> implements OptionalBase<T> {
         return this.value;
     }
 
+    andThen<T2>(mapper: (value: T) => OptionalSome<T2>): OptionalSome<T2>;
+    andThen(mapper: (value: T) => OptionalNone): OptionalNone;
     andThen<T2>(mapper: (value: T) => Optional<T2>): Optional<T2> {
         return mapper(this.value);
     }
+    andThenAsync<T2>(mapper: (value: T) => Promise<OptionalSome<T2>>): Promise<OptionalSome<T2>>;
+    andThenAsync(mapper: (value: T) => Promise<OptionalNone>): Promise<OptionalNone>;
     andThenAsync<T2>(mapper: (value: T) => Promise<Optional<T2>>): Promise<Optional<T2>> {
         return mapper(this.value);
     }
-    orElse(_mapper: unknown): OptionalSomeClass<T> {
+
+    orElse(): OptionalSome<T> {
         return this;
     }
-    async orElseAsync(_mapper: unknown): Promise<OptionalSomeClass<T>> {
+    async orElseAsync(): Promise<OptionalSome<T>> {
         return this;
     }
 
-    map<U>(mapper: (value: T) => U): OptionalSomeClass<U> {
-        return new OptionalSomeClass(mapper(this.value))
+    map<U>(mapper: (value: T) => U): OptionalSome<U> {
+        return new OptionalSome(mapper(this.value))
     }
-    async mapAsync<U>(mapper: (value: T) => Promise<U>): Promise<OptionalSomeClass<U>> {
-        return new OptionalSomeClass(await mapper(this.value))
+    async mapAsync<U>(mapper: (value: T) => Promise<U>): Promise<OptionalSome<U>> {
+        return new OptionalSome(await mapper(this.value))
     }
 
-    toResult(): ResultValidClass<T> {
-        return new ResultValidClass(this.value)
+    toResult(): ResultValid<T> {
+        return new ResultValid(this.value)
     }
 }

@@ -1,12 +1,12 @@
-import { Result, ResultError, ResultValid } from "../src"
+import { Result, Error, Valid } from "../src"
 
 
-let test = ResultValid(5) as Result<number, string>;
+let test = Valid(5) as Result<number, string>;
 let test2 = test.andThen((value) => {
-    return ResultValid(6);
+    return Valid(6);
 })
-let test3 = test.orElse((errer) => {
-    return ResultError(5)
+let test3 = test.map((errer) => {
+    return Error(5)
 })
 
 console.log((await test2).unwrap());
