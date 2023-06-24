@@ -40,5 +40,8 @@
     "url": "https://github.com/ChocolateLib/result/issues"
   },
   "homepage": "https://github.com/ChocolateLib/result#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
