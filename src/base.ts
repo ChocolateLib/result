@@ -2,18 +2,7 @@ import { Optional, Result } from "./index";
 import { OptionalSome, ResultValid } from "./valid";
 import { OptionalNone, ResultError } from "./error";
 
-export interface ResultBase<T, E> {
-    /**Is true when the result is valid and false when it is invalid*/
-    readonly valid: boolean;
-    /**Is true when the result is valid and false when it is invalid*/
-    readonly ok: boolean;
-    /**Is false when the result is valid and true when it is invalid*/
-    readonly err: boolean;
-    /**The value for the result, only exists when it is valid*/
-    readonly value?: T;
-    /**The error for the result, only exists when it is invalid*/
-    readonly error?: E;
-
+export interface ResultBaseActions<T, E> {
     /**Returns the contained valid value, if exists. Throws an error if not.
      * @param msg the message to throw if the value is invalid.*/
     expect(msg: string): T;
@@ -56,6 +45,19 @@ export interface ResultBase<T, E> {
      * This function can be used to pass through a successful result while handling an error.*/
     mapErr<F>(mapper: (error: E) => F): Result<T, F>
     mapErrAsync<F>(mapper: (error: E) => Promise<F>): Promise<Result<T, F>>
+}
+
+export interface ResultBase<T, E> extends ResultBaseActions<T, E> {
+    /**Is true when the result is valid and false when it is invalid*/
+    readonly valid: boolean;
+    /**Is true when the result is valid and false when it is invalid*/
+    readonly ok: boolean;
+    /**Is false when the result is valid and true when it is invalid*/
+    readonly err: boolean;
+    /**The value for the result, only exists when it is valid*/
+    readonly value?: T;
+    /**The error for the result, only exists when it is invalid*/
+    readonly error?: E;
 
     /**Converts from `Result<T, E>` to `Optional<T>`, discarding the error if any*/
     toOptional(): Optional<T>;
