@@ -1,7 +1,7 @@
 import { ResultValid as ResultValid, OptionalSome as OptionalSome } from "./valid";
 import { ResultError as ResultError, OptionalNone as OptionalNone } from "./error";
 
-export type Result<T, E> = ResultValid<T> | ResultError<E>;
+export type Result<T, E = T> = ResultValid<T> | ResultError<E>;
 export type Optional<T> = OptionalSome<T> | OptionalNone;
 export type ResultOrOptional<T> = Omit<Result<T, never>, 'andThen'> | Optional<T>;
 

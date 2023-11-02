@@ -45,12 +45,14 @@ export class ResultError<E> implements ResultBase<never, E> {
 
     orElse<T2>(mapper: (error: E) => ResultValid<T2>): ResultValid<T2>;
     orElse<E2>(mapper: (error: E) => ResultError<E2>): ResultError<E2>;
-    orElse<T2, E2>(mapper: (error: E) => Result<T2, E2>): Result<T2, E2> {
+    orElse<T2, E2>(mapper: (error: E) => Result<T2, E2>): Result<T2, E2>;
+    orElse<T2, E2>(mapper: (error: E) => Result<T2, E2>) {
         return mapper(this.error);
     }
     orElseAsync<T2>(mapper: (error: E) => Promise<ResultValid<T2>>): Promise<Result<T2, E>>;
     orElseAsync<E2>(mapper: (error: E) => Promise<ResultError<E2>>): Promise<ResultError<E2>>;
-    orElseAsync<T2, E2>(mapper: (error: E) => Promise<Result<T2, E2>>): Promise<Result<T2, E2>> {
+    orElseAsync<T2, E2>(mapper: (error: E) => Promise<Result<T2, E2>>): Promise<Result<T2, E2>>;
+    orElseAsync<T2, E2>(mapper: (error: E) => Promise<Result<T2, E2>>) {
         return mapper(this.error);
     }
 
@@ -110,12 +112,14 @@ export class OptionalNone implements OptionalBase<never> {
 
     orElse<T2>(mapper: () => OptionalSome<T2>): OptionalSome<T2>;
     orElse(mapper: () => OptionalNone): OptionalNone;
-    orElse<T2>(mapper: () => Optional<T2>): Optional<T2> {
+    orElse<T2>(mapper: () => Optional<T2>): Optional<T2>;
+    orElse<T2>(mapper: () => Optional<T2>) {
         return mapper();
     }
     orElseAsync<T2>(mapper: () => Promise<OptionalSome<T2>>): Promise<OptionalSome<T2>>;
     orElseAsync(mapper: () => Promise<OptionalNone>): Promise<OptionalNone>;
-    orElseAsync<T2>(mapper: () => Promise<Optional<T2>>): Promise<Optional<T2>> {
+    orElseAsync<T2>(mapper: () => Promise<Optional<T2>>): Promise<Optional<T2>>;
+    orElseAsync<T2>(mapper: () => Promise<Optional<T2>>) {
         return mapper();
     }
 

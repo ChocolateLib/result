@@ -37,12 +37,14 @@ export class ResultValid<T> implements ResultBase<T, never> {
 
     andThen<T2>(mapper: (value: T) => ResultValid<T2>): ResultValid<T2>;
     andThen<E2>(mapper: (value: T) => ResultError<E2>): ResultError<E2>;
-    andThen<T2, E2>(mapper: (value: T) => Result<T2, E2>): Result<T2, E2> {
+    andThen<T2, E2>(mapper: (value: T) => Result<T2, E2>): Result<T2, E2>;
+    andThen<T2, E2>(mapper: (value: T) => Result<T2, E2>) {
         return mapper(this.value);
     }
     andThenAsync<T2>(mapper: (value: T) => Promise<ResultValid<T2>>): Promise<ResultValid<T2>>;
     andThenAsync<E2>(mapper: (value: T) => Promise<ResultError<E2>>): Promise<ResultError<E2>>;
-    andThenAsync<T2, E2>(mapper: (value: T) => Promise<Result<T2, E2>>): Promise<Result<T2, E2>> {
+    andThenAsync<T2, E2>(mapper: (value: T) => Promise<Result<T2, E2>>): Promise<Result<T2, E2>>;
+    andThenAsync<T2, E2>(mapper: (value: T) => Promise<Result<T2, E2>>) {
         return mapper(this.value);
     }
 
@@ -110,12 +112,14 @@ export class OptionalSome<T> implements OptionalBase<T> {
 
     andThen<T2>(mapper: (value: T) => OptionalSome<T2>): OptionalSome<T2>;
     andThen(mapper: (value: T) => OptionalNone): OptionalNone;
-    andThen<T2>(mapper: (value: T) => Optional<T2>): Optional<T2> {
+    andThen<T2>(mapper: (value: T) => Optional<T2>): Optional<T2>;
+    andThen<T2>(mapper: (value: T) => Optional<T2>) {
         return mapper(this.value);
     }
     andThenAsync<T2>(mapper: (value: T) => Promise<OptionalSome<T2>>): Promise<OptionalSome<T2>>;
     andThenAsync(mapper: (value: T) => Promise<OptionalNone>): Promise<OptionalNone>;
-    andThenAsync<T2>(mapper: (value: T) => Promise<Optional<T2>>): Promise<Optional<T2>> {
+    andThenAsync<T2>(mapper: (value: T) => Promise<Optional<T2>>): Promise<Optional<T2>>;
+    andThenAsync<T2>(mapper: (value: T) => Promise<Optional<T2>>) {
         return mapper(this.value);
     }
 

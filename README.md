@@ -24,6 +24,8 @@ The state is a medium which allows passing a value with a guarentee of updates f
     //Calling the function
     let result = await getOnlineData('Sample URL');
 
+    
+
 
     logStateValue(new State(1));
     //Expected log output is 1
