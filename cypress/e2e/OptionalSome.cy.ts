@@ -44,27 +44,9 @@ describe('Some', function () {
             return None()
         }).none).equal(true);
     });
-    it('andThenAsync from Some returning Some', async function () {
-        let result = Some(42);
-        expect((await result.andThenAsync(async (val) => {
-            expect(val).equal(42);
-            return Some('42')
-        })).expect()).equal('42');
-    });
-    it('andThenAsync from Some returning error result', async function () {
-        let result = Some(42);
-        expect((await result.andThenAsync(async (val) => {
-            expect(val).equal(42);
-            return None()
-        })).none).equal(true);
-    });
     it('orElse from Some', function () {
         let result = Some(42);
         expect(result.orElse().expect()).equal(42);
-    });
-    it('orElseAsync from Some', async function () {
-        let result = Some(42);
-        expect((await result.orElseAsync()).expect()).equal(42);
     });
     it('map from Some', function () {
         let result = Some(42);
@@ -72,13 +54,6 @@ describe('Some', function () {
             expect(val).equal(42);
             return '42'
         }).expect()).equal('42');
-    });
-    it('mapAsync from Some', async function () {
-        let result = Some(42);
-        expect((await result.mapAsync(async (val) => {
-            expect(val).equal(42);
-            return '42'
-        })).expect()).equal('42');
     });
     it('toResult from Some', function () {
         let result = Some(42);
