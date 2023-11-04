@@ -1,11 +1,13 @@
-import { ResultValid as ResultValid, OptionalSome as OptionalSome } from "./valid";
-import { ResultError as ResultError, OptionalNone as OptionalNone } from "./error";
+import { OptionSome, OptionNone } from "./option";
+import { ResultOk, ResultErr } from "./result";
 
-export type Result<T, E = T> = ResultValid<T> | ResultError<E>;
-export type Optional<T> = OptionalSome<T> | OptionalNone;
-export type ResultOrOptional<T> = Omit<Result<T, never>, 'andThen'> | Optional<T>;
+export type Result<T, E = T> = ResultOk<T> | ResultErr<E>;
+export type ResultAsync<T, E = T> = Promise<Result<T, E>>;
+export type Option<T> = OptionSome<T> | OptionNone;
+export type OptionAsync<T> = Promise<Option<T>>;
 
-export function Valid<T>(value: T) { return new ResultValid<T>(value) }
-export function Error<E>(error: E) { return new ResultError<E>(error) }
-export function Some<T>(value: T) { return new OptionalSome<T>(value) }
-export function None() { return new OptionalNone() }
+export function Ok<T>(value: T) { return new ResultOk<T>(value) }
+export function Err<E>(error: E) { return new ResultErr<E>(error) }
+export function Some<T>(value: T) { return new OptionSome<T>(value) }
+export function None() { return new OptionNone() }
+

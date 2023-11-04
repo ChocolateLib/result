@@ -30,10 +30,6 @@ describe('None', function () {
         let result = None();
         expect(result.andThen().none).equal(true);
     });
-    it('andThenAsync from None returning error result', async function () {
-        let result = None();
-        expect((await result.andThenAsync()).none).equal(true);
-    });
     it('orElse from Some returning Some', function () {
         let result = None();
         expect(result.orElse(() => {
@@ -46,25 +42,9 @@ describe('None', function () {
             return None()
         }).none).equal(true);
     });
-    it('orElseAsync from Some returning Some', async function () {
-        let result = None();
-        expect((await result.orElseAsync(async () => {
-            return Some('42')
-        })).expect()).equal('42');
-    });
-    it('orElseAsync from Some returning error result', async function () {
-        let result = None();
-        expect((await result.orElseAsync(async () => {
-            return None()
-        })).none).equal(true);
-    });
     it('map from None', function () {
         let result = None();
         expect(result.map()).equal(result);
-    });
-    it('mapAsync from None', async function () {
-        let result = None();
-        expect((await result.mapAsync())).equal(result);
     });
     it('toResult from None', function () {
         let result = None();
