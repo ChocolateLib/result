@@ -24,7 +24,7 @@ describe('Result Valid', function () {
     });
     it('Unwrap value from valid result', function () {
         let result = Ok(42);
-        expect(result.unwrap()).equal(42);
+        expect(result.unwrap).equal(42);
     });
     it('UnwrapOr value from valid result', function () {
         let result = Ok(42);
@@ -61,7 +61,7 @@ describe('Result Valid', function () {
     });
     it('toOptional from valid result', function () {
         let result = Ok(42);
-        expect(result.toOptional().expect()).equal(42);
+        expect(result.toOptional.expect()).equal(42);
     });
     it('safeUnwrap from valid result', function () {
         let result = Ok(42);

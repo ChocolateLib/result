@@ -24,7 +24,7 @@ describe('Result Error', function () {
     });
     it('Unwrap value from error result', function () {
         let result = Err(42);
-        expect(() => { result.unwrap() }).to.throw();
+        expect(() => { result.unwrap }).to.throw();
     });
     it('UnwrapOr value from error result', function () {
         let result = Err(42);
@@ -54,7 +54,7 @@ describe('Result Error', function () {
     });
     it('toOptional from error result', function () {
         let result = Err(42);
-        expect(result.toOptional().none).equal(true);
+        expect(result.toOptional.none).equal(true);
     });
     it('stack from error result', function () {
         let result = Err(42);

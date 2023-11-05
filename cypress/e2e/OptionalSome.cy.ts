@@ -24,7 +24,7 @@ describe('Some', function () {
     });
     it('Unwrap value from Some', function () {
         let result = Some(42);
-        expect(result.unwrap()).equal(42);
+        expect(result.unwrap).equal(42);
     });
     it('UnwrapOr value from Some', function () {
         let result = Some(42);
