@@ -22,7 +22,7 @@ export interface ResultBase<T, E> {
 
     /**Returns the contained valid value.
      * Throws if the value is invalid, with a message provided by the error's value.*/
-    unwrap(): T;
+    get unwrap(): T;
 
     /**Returns the contained valid value or a provided default.*/
     unwrapOr<T2>(value: T2): T | T2;
@@ -48,7 +48,7 @@ export interface ResultBase<T, E> {
     mapErr<F>(mapper: (error: E) => F): Result<T, F>
 
     /**Converts from `Result<T, E>` to `Optional<T>`, discarding the error if any*/
-    toOptional(): Option<T>;
+    get toOptional(): Option<T>;
 }
 
 
@@ -65,7 +65,7 @@ export interface OptionBase<T> {
     expect(msg: string): T;
 
     /**Returns the contained value, if exists. Throws an error if not.*/
-    unwrap(): T;
+    get unwrap(): T;
 
     /**Returns the contained value or a provided default.
      * @param value value to use as default*/

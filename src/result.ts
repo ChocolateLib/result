@@ -23,7 +23,7 @@ export class ResultOk<T> implements ResultBase<T, never> {
         throw new Error(msg);
     }
 
-    unwrap(): T {
+    get unwrap(): T {
         return this.value
     }
 
@@ -50,7 +50,7 @@ export class ResultOk<T> implements ResultBase<T, never> {
         return this
     }
 
-    toOptional(): OptionSome<T> {
+    get toOptional(): OptionSome<T> {
         return new OptionSome(this.value);
     }
 
@@ -89,7 +89,7 @@ export class ResultErr<E> implements ResultBase<never, E> {
         return this.error
     }
 
-    unwrap(): never {
+    get unwrap(): never {
         throw new Error('Tried to unwrap Error\nOriginal ' + this.#stack + '\nUnwrap Error');
     }
 
@@ -116,7 +116,7 @@ export class ResultErr<E> implements ResultBase<never, E> {
         return new ResultErr(mapper(this.error));
     }
 
-    toOptional(): OptionNone {
+    get toOptional(): OptionNone {
         return new OptionNone();
     }
 

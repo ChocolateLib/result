@@ -22,7 +22,7 @@ export class OptionSome<T> implements OptionBase<T> {
         return this.value;
     }
 
-    unwrap(): T {
+    get unwrap(): T {
         return this.value;
     }
 
@@ -65,7 +65,7 @@ export class OptionNone implements OptionBase<never> {
         throw new Error(msg);
     }
 
-    unwrap(): never {
+    get unwrap(): never {
         throw new Error(`Tried to unwrap None`);
     }
 
