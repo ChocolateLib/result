@@ -32,5 +32,10 @@ The state is a medium which allows passing a value with a guarentee of updates f
 
 
 # Changelog
+* ## 0.0.4
+Removed all async integration, as it makes more sense to wrap the Result in a Promise than the other way around.  
+Changed typescript target to ES2022 from ESNext.  
+Changed vite config to emit ES2022.  
+
 * ## 0.0.1
 Initial Version
